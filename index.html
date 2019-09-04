@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keyword" content="fossil,paleoanthropology,data,analysis">
+    <title>FossilView</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/blog.css" />
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="../../static/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="../../static/js/jquery-3.0.0/jquery-3.0.0/jquery-3.0.0.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../static/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+    <div id="first-box">
+        <h1 style="padding: 30px;text-align: center;color: #080808; font-size: 55px">FossilView</h1>
+        <h3 class="tagline">the visualization of data<br> for people to check our analysis</h3>
+    </div>
+
+    <ul class="nav nav-pills nav-justified">
+	<li ><a href="/">Overview</a></li>
+	<li><a href="#">Heatmap</a></li>
+	<li><a href="#">Flowmap</a></li>
+	<li><a href="#">Download</a></li>
+	<li><a href="#">Plugins</a></li>
+	<li><a href="#">Blog</a></li>
+</ul><br><br><br>
+
+    <div class="top clearfix">
+			<div class="top-left">
+				<a id="a1" href="" target="_blank"></a>
+				<a id="a2" href="" target="_blank"></a>
+				<a id="a3" href="" target="_blank"></a>
+				<a id="a4" href="" target="_blank"></a>
+				<a id="a5" href="" target="_blank"></a>
+			</div>
+
+			<div class="top-right">
+				<a href="https://www.zhihu.com/question/54272917/answer/139245031" target="_blank"><img src="../../static/img/huashi1.jpg" ></a>
+				<a href="https://www.zhihu.com/question/54272917/answer/139245031" target="_blank">你见过的古生物化石有多漂亮？</a>
+				<p>
+					寄蜉蝣于天地，渺沧海之一粟。让我想到了之前看到的一个非常可爱的蜉蝣化石——(Jurassonurus amoenus)
+					名字就很可爱吧，他的种名来自于拉丁形容词amoenus(可爱的)，当然，是用来形容化石标本保存完好而且精美。
+					她跟现代蜉蝣的体型和外观区别并不大……
+				</p>
+			</div>
+		</div>
+
+		<div class="middle">
+			<span id="span-left"></span>
+			<span id="span-right"></span>
+			<a href=""  target="_blank" id="middle1"><img id="img1" src="../../static/img/a1.jpg" ></a>
+			<a href=""  target="_blank" id="middle2"><img id="img2" src="../../static/img/a2.jpg" ></a>
+			<a href=""  target="_blank" id="middle3"><img id="img3" src="../../static/img/a3.jpg" ></a>
+			<a href=""  target="_blank" id="middle4"><img id="img4" src="../../static/img/a4.jpg" ></a>
+			<a href=""  target="_blank" id="middle5"><img id="img5" src="../../static/img/a5.jpg" ></a>
+			<a href=""  target="_blank" id="middle6"><img id="img6" src="../../static/img/a6.jpg" ></a>
+		</div>
+
+		<div class="bottom">
+			<div class="bottom-left">
+				<a href="https://www.zhihu.com/question/29741847/answer/535407614" target="_blank"><img src="../../static/img/huashi2.jpg" ></a>
+				<a href="https://www.zhihu.com/question/29741847/answer/535407614" target="_blank">恐龙蛋化石切开后是什么样的？</a>
+				<p>
+					恐龙蛋化石和普通的化石有些差异，一是蛋比较脆弱，大多为原地埋藏，经不起远距离搬运，所以大多数恐龙蛋化石都不是单个产出的，有的还一窝一窝出现。
+					二是它可能存在内部空间，里面会形成不同的结构……
+				</p>
+			</div>
+
+			<div class="bottom-right">
+				<a id="a6" href="" target="_blank"></a>
+				<a id="a7" href="" target="_blank"></a>
+				<a id="a8" href="" target="_blank"></a>
+				<a id="a9" href="" target="_blank"></a>
+				<a id="a10" href="" target="_blank"></a>
+			</div>
+		</div>
+		<hr >
+		<div class="footer">
+			<a href="https://www.zhihu.com/topics" target="_blank"><img src="../../static/img/zhihu.jpg" ></a>
+			<a href="https://www.qq.com" target="_blank"><img src="../../static/img/tengxun.jpg" ></a>
+			<a href="https://news.sina.com.cn" target="_blank"><img src="../../static/img/xinlang.jpg" ></a>
+		</div>
+
+		<script type="text/javascript">
+
+			// 获取json中内容，保存在temp中
+			var jsonData = $.ajax({url:"../../myApp/data.json",async:false});
+			var temp = JSON.parse(jsonData.responseText);
+			// 将json对象转化为字符串
+			var str = JSON.stringify(temp);
+
+			var arrays = new Array();
+			// 定义一个数组，数组中保存爬下来的url
+            var urlArrays = new Array();
+            // 定义一个数组，数组中保存爬下来的标题    topic":" 之后————",之前
+            var titleArrays = new Array();
+            // 以"},"分割json文件中的内容
+            arrays = str.split("},");
+
+            for (i = 0;i < arrays.length ;i++ ){
+            	// 找标题
+            	var search1 = 'topic":"'
+            	var search2 = '",'
+            	var titleStart = arrays[i].indexOf(search1);
+                var titleEnd = arrays[i].indexOf(search2);
+            	titleArrays[i] = arrays[i].substring(titleStart + search1.length,titleEnd);
+
+            	// 找url
+            	var search3 = 'url":"'
+            	var search4 = '"}'
+            	var urlStart = arrays[i].indexOf(search3);
+                var urlEnd = arrays[i].indexOf(search4);
+            	urlArrays[i] = arrays[i].substring(urlStart + search3.length,urlEnd);
+            }
+
+            var oA1 = document.getElementById("a1")
+            oA1.href = urlArrays[0]
+            oA1.innerHTML = titleArrays[0]
+            var oA2 = document.getElementById("a2")
+            oA2.href = urlArrays[1]
+            oA2.innerHTML = titleArrays[1]
+            var oA3 = document.getElementById("a3")
+            oA3.href = urlArrays[2]
+            oA3.innerHTML = titleArrays[2]
+            var oA4 = document.getElementById("a4")
+            oA4.href = urlArrays[3]
+            oA4.innerHTML = titleArrays[3]
+            var oA5 = document.getElementById("a5")
+            oA5.href = urlArrays[4]
+            oA5.innerHTML = titleArrays[4]
+
+            var oA6 = document.getElementById("a6")
+            oA6.href = urlArrays[5]
+            oA6.innerHTML = titleArrays[5]
+            var oA7 = document.getElementById("a7")
+            oA7.href = urlArrays[6]
+            oA7.innerHTML = titleArrays[6]
+            var oA8 = document.getElementById("a8")
+            oA8.href = urlArrays[7]
+            oA8.innerHTML = titleArrays[7]
+            var oA9 = document.getElementById("a9")
+            oA9.href = urlArrays[16]
+            oA9.innerHTML = titleArrays[16]
+            var oA10 = document.getElementById("a10")
+            oA10.href = urlArrays[20]
+            oA10.innerHTML = titleArrays[20]
+            var oA11 = document.getElementById("middle1")
+            oA11.href = urlArrays[11]
+            var oA12 = document.getElementById("middle2")
+            oA12.href = urlArrays[13]
+            var oA13 = document.getElementById("middle3")
+            oA13.href = urlArrays[15]
+            var oA14 = document.getElementById("middle4")
+            oA14.href = urlArrays[20]
+            var oA15 = document.getElementById("middle5")
+            oA15.href = urlArrays[10]
+            var oA16 = document.getElementById("middle6")
+            oA16.href = urlArrays[14]
+
+
+
+			var oLeft = document.getElementById('span-left')
+			var oRight = document.getElementById('span-right')
+			var o1 = document.getElementById('img1')
+			var o2 = document.getElementById('img2')
+			var o3 = document.getElementById('img3')
+			var o4 = document.getElementById('img4')
+			var o5 = document.getElementById('img5')
+			var o6 = document.getElementById('img6')
+			var now1 = 1
+			var now2 = 2
+			var now3 = 3
+			var now4 = 4
+			var now5 = 5
+			var now6 = 6
+
+			oLeft.onclick = function(){
+				now1--
+				now2--
+				now3--
+				now4--
+				now5--
+				now6--
+				if(now1 <= 0){
+					now1 = 1
+				}
+				if(now2 <= 1){
+					now2 = 2
+				}
+				if(now3 <= 2){
+					now3 = 3
+				}
+				if(now4 <= 3){
+					now4 = 4
+				}
+				if(now5 <= 4){
+					now5 = 5
+				}
+				if(now6 <= 5){
+					now6 = 6
+				}
+				o1.src = '../../static/img/a' + now1 + '.jpg'
+				o2.src = '../../static/img/a' + now2 + '.jpg'
+				o3.src = '../../static/img/a' + now3 + '.jpg'
+				o4.src = '../../static/img/a' + now4 + '.jpg'
+				o5.src = '../../static/img/a' + now5 + '.jpg'
+				o6.src = '../../static/img/a' + now6 + '.jpg'
+			}
+			oRight.onclick = function(){
+				now1++
+				now2++
+				now3++
+				now4++
+				now5++
+				now6++
+				if(now1 >= 5){
+					now1 = 5
+				}
+				if(now2 >= 6){
+					now2 = 6
+				}
+				if(now3 >= 7){
+					now3 = 7
+				}
+				if(now4 >= 8){
+					now4 = 8
+				}
+				if(now5 >= 9){
+					now5 = 9
+				}
+				if(now6 >= 10){
+					now6 = 10
+				}
+				o1.src = '../../static/img/a' + now1 + '.jpg'
+				o2.src = '../../static/img/a' + now2 + '.jpg'
+				o3.src = '../../static/img/a' + now3 + '.jpg'
+				o4.src = '../../static/img/a' + now4 + '.jpg'
+				o5.src = '../../static/img/a' + now5 + '.jpg'
+				o6.src = '../../static/img/a' + now6 + '.jpg'
+			}
+		</script>
+
+
+</body>
+</html>
